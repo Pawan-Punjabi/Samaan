@@ -142,7 +142,7 @@ export default function NodeInspector({
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'minmax(320px, 380px) 1fr', gap: 16, alignItems: 'start' }}>
       {/* Left Column: Analyst Controls */}
-      <section className="panel no-print" style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <section data-tour="inspector-controls" className="panel no-print" style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
           <input
             type="text"
@@ -841,7 +841,7 @@ export default function NodeInspector({
       </section>
 
       {/* Right Column: Interactive Sortable Step Data Table */}
-      <section className="panel" style={{ overflow: 'hidden', minWidth: 0 }}>
+      <section data-tour="inspector-table" className="panel" style={{ overflow: 'hidden', minWidth: 0 }}>
         <div
           style={{
             padding: '10px 14px',

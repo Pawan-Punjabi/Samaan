@@ -91,6 +91,7 @@ export default function FlowCanvas({
     <section className="panel no-print" style={{ overflow: 'hidden' }}>
       {/* Parabola-style Step Library Toolbar */}
       <div
+        data-tour="step-library"
         style={{
           padding: '8px 14px',
           borderBottom: '1px solid var(--border)',
@@ -138,6 +139,7 @@ export default function FlowCanvas({
 
       {/* Draggable Canvas */}
       <div
+        data-tour="flow-canvas"
         style={{
           overflowX: 'auto',
           overflowY: 'auto',

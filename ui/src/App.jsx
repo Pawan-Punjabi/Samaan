@@ -1,10 +1,13 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { Play, Save, Sun, Moon, Home } from 'lucide-react';
+import { Play, Save, Sun, Moon, Home, Compass } from 'lucide-react';
 import FlowCanvas from './components/FlowCanvas';
 import NodeInspector from './components/NodeInspector';
+import ProductTour from './components/ProductTour';
 import { checkHealth, exportFlowCsv, loadSampleFlow, runFlow } from './api/client';
 
 const STORAGE_KEY = 'retailflow_custom_flow_v2';
+const TOUR_SEEN_KEY = 'retailflow_tour_seen_v1';
+const THEME_KEY = 'retailflow_theme_v1';
 
 const TEMPLATES = [
   { id: 'reorder_po', label: 'Reorder PO Flow' },
@@ -13,7 +16,7 @@ const TEMPLATES = [
 ];
 
 export default function App() {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState(() => localStorage.getItem(THEME_KEY) || 'dark');
   const [backendOnline, setBackendOnline] = useState(false);
   const [template, setTemplate] = useState('reorder_po');
   const [graph, setGraph] = useState(null);
@@ -22,10 +25,20 @@ export default function App() {
   const [isRunning, setIsRunning] = useState(false);
   const [notice, setNotice] = useState('');
   const [error, setError] = useState('');
+  const [tourOpen, setTourOpen] = useState(() => {
+    const force = new URLSearchParams(window.location.search).get('tour') === '1';
+    return force || !localStorage.getItem(TOUR_SEEN_KEY);
+  });
   const stepCounter = useRef(1);
+
+  const handleCloseTour = useCallback(() => {
+    localStorage.setItem(TOUR_SEEN_KEY, '1');
+    setTourOpen(false);
+  }, []);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem(THEME_KEY, theme);
   }, [theme]);
 
   const execute = useCallback(async (nextGraph) => {
@@ -192,7 +205,7 @@ export default function App() {
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
             {/* Clean Segmented Template Switcher */}
-            <div style={{ display: 'inline-flex', padding: 3, borderRadius: 6, background: 'var(--surface-muted)', border: '1px solid var(--border)' }}>
+            <div data-tour="templates" style={{ display: 'inline-flex', padding: 3, borderRadius: 6, background: 'var(--surface-muted)', border: '1px solid var(--border)' }}>
               {TEMPLATES.map((tpl) => {
                 const active = template === tpl.id;
                 return (
@@ -222,10 +235,13 @@ export default function App() {
               })}
             </div>
 
+            <button type="button" className="btn" disabled={!graph} onClick={() => setTourOpen(true)}>
+              <Compass size={14} aria-hidden="true" /> Tour
+            </button>
             <button type="button" className="btn" disabled={!graph} onClick={handleSaveFlow}>
               <Save size={14} aria-hidden="true" /> {notice || 'Save Flow'}
             </button>
-            <button type="button" className="btn btn-cta" disabled={!graph || isRunning} onClick={() => graph && execute(graph)}>
+            <button type="button" data-tour="run-flow" className="btn btn-cta" disabled={!graph || isRunning} onClick={() => graph && execute(graph)}>
               <Play size={14} aria-hidden="true" /> {isRunning ? 'Running…' : 'Run Flow'}
             </button>
             <button
@@ -276,6 +292,14 @@ export default function App() {
           </>
         )}
       </main>
+
+      {tourOpen && graph && (
+        <ProductTour
+          onClose={handleCloseTour}
+          onSelectNode={setSelectedId}
+          graphNodes={graph.nodes}
+        />
+      )}
     </div>
   );
 }

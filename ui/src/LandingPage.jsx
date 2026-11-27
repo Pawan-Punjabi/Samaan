@@ -157,22 +157,13 @@ export default function LandingPage() {
                 An interactive node-based data profiling and analytics platform that simplifies data exploration,
                 automates profiling workflows, and helps users understand datasets through a visual, connected workspace.
               </p>
-              <div className="df-actions">
-                <a className="df-button df-button-primary" href="/app">Get started <ArrowRight size={16} /></a>
-                <a className="df-button df-button-secondary" href="#features">Explore features</a>
-              </div>
-              <p className="df-note">Built around practical profiling, transformations, and retail analytics.</p>
-            </div>
-            <div className="df-demo">
-              <div className="df-demo-head">
-                <span><strong>A workflow you can follow</strong><small>Supported node types, connected visually</small></span>
-                <MousePointer2 size={16} aria-hidden="true" />
-              </div>
-              <WorkflowIllustration />
-              <div className="df-demo-foot">
-                <span><Check size={13} /> Column profiles</span>
-                <span><Check size={13} /> Per-step previews</span>
-                <span><Check size={13} /> CSV export</span>
+              <div className="landing-hero-actions">
+                <a className="landing-button landing-button-primary" href="/app">
+                  Get started <ArrowRight size={16} aria-hidden="true" />
+                </a>
+                <a className="landing-button landing-button-secondary" href="#features">
+                  Explore features
+                </a>
               </div>
             </div>
           </div>

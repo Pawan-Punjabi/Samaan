@@ -1,30 +1,16 @@
-# DataFlow UI
+# React + Vite
 
-The React/Vite frontend for the Interactive Node-Based Data Profiling and Analytics Platform.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Run locally
+Currently, two official plugins are available:
 
-From the repository root, start the backend in one terminal:
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-```cmd
-cd backend
-python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
-```
+## React Compiler
 
-In a second terminal, start the frontend:
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-```cmd
-set "PATH=%LOCALAPPDATA%\Programs\nodejs;%PATH%"
-cd ui
-npm ci
-npm run dev -- --host 127.0.0.1
-```
+## Expanding the ESLint configuration
 
-The landing page is served at `/`. Choose **Launch App** to open the existing workflow studio at `/app`.
-The backend API should be running at `http://127.0.0.1:8000`.
-
-## Production build
-
-```sh
-npm run build
-```
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
