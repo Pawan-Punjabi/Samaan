@@ -482,7 +482,7 @@ def answer_question_offline(question: str, workspace_df: pl.DataFrame) -> AskQue
             else f"STRFTIME(TRY_CAST({quote_ident(date_col)} AS DATE), '%Y-%m-%d')"
         )
         m_expr = (
-            f"COUNT(*)"
+            "COUNT(*)"
             if agg_func == "COUNT" or not metric_col
             else f"ROUND({agg_func}(TRY_CAST({quote_ident(metric_col)} AS DOUBLE)), 2)"
         )
