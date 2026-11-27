@@ -20,6 +20,10 @@ def _isolated_workspace(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path
 
 def test_sample_flow_executes_all_five_nodes() -> None:
     with TestClient(app) as client:
+        root = client.get("/")
+        assert root.status_code == 200
+        assert root.json()["health"] == "/api/v1/health"
+
         health = client.get("/api/v1/health")
         assert health.status_code == 200
 

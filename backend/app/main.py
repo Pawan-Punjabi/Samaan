@@ -32,6 +32,16 @@ app.add_middleware(
 )
 
 
+@app.get("/")
+def root() -> dict[str, str]:
+    """Provide entry points for the API when the server root is opened."""
+    return {
+        "name": app.title,
+        "docs": "/docs",
+        "health": f"{settings.api_prefix}/health",
+    }
+
+
 @app.get(f"{settings.api_prefix}/health")
 def health() -> dict[str, str | int]:
     """Readiness probe confirming API availability."""
