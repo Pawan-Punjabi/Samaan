@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { Play, Save, Sun, Moon } from 'lucide-react';
+import { Play, Save, Sun, Moon, Home } from 'lucide-react';
 import FlowCanvas from './components/FlowCanvas';
 import NodeInspector from './components/NodeInspector';
 import { checkHealth, exportFlowCsv, loadSampleFlow, runFlow } from './api/client';
@@ -176,11 +176,14 @@ export default function App() {
       <header className="no-print" style={{ borderBottom: '1px solid var(--border)', background: 'var(--surface)', padding: '10px 24px' }}>
         <div style={{ maxWidth: 1360, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <a href="/" className="btn" aria-label="Back to DataFlow landing page" style={{ textDecoration: 'none' }}>
+              <Home size={14} aria-hidden="true" /> Home
+            </a>
             <span style={{ width: 28, height: 28, borderRadius: 6, background: 'var(--primary)', color: '#fff', display: 'grid', placeItems: 'center', fontWeight: 700, fontSize: 14 }}>
-              R
+              D
             </span>
             <div>
-              <div style={{ fontWeight: 700, fontSize: 15 }}>RetailFlow — Visual Data Studio</div>
+              <div style={{ fontWeight: 700, fontSize: 15 }}>DataFlow — Visual Data Studio</div>
               <div style={{ fontSize: 11.5, color: backendOnline ? 'var(--success)' : 'var(--danger)' }}>
                 {backendOnline ? 'Click any step to edit, filter, rename, calculate, or sort live rows' : 'Backend Offline (start uvicorn on port 8000)'}
               </div>
