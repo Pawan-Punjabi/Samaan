@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { Play, Save, Sun, Moon, Home, Compass } from 'lucide-react';
+import { Play, Save, Sun, Moon, Compass } from 'lucide-react';
 import FlowCanvas from './components/FlowCanvas';
+import Navbar from './components/Navbar';
 import NodeInspector from './components/NodeInspector';
 import ProductTour from './components/ProductTour';
 import { checkHealth, exportFlowCsv, loadSampleFlow, runFlow } from './api/client';
@@ -186,21 +187,51 @@ export default function App() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <header className="no-print" style={{ borderBottom: '1px solid var(--border)', background: 'var(--surface)', padding: '10px 24px' }}>
-        <div style={{ maxWidth: 1360, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <a href="/" className="btn" aria-label="Back to DataFlow landing page" style={{ textDecoration: 'none' }}>
-              <Home size={14} aria-hidden="true" /> Home
-            </a>
-            <span style={{ width: 28, height: 28, borderRadius: 6, background: 'var(--primary)', color: '#fff', display: 'grid', placeItems: 'center', fontWeight: 700, fontSize: 14 }}>
-              D
+      <Navbar
+        mode="studio"
+        rightContent={
+          <>
+            <button type="button" className="btn" disabled={!graph} onClick={() => setTourOpen(true)}>
+              <Compass size={14} aria-hidden="true" /> Tour
+            </button>
+            <button
+              type="button"
+              className="btn"
+              onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
+              aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+            >
+              {theme === 'light' ? <Moon size={14} aria-hidden="true" /> : <Sun size={14} aria-hidden="true" />}
+            </button>
+          </>
+        }
+      />
+
+      <main style={{ maxWidth: 1280, width: '100%', margin: '0 auto', padding: '16px 24px 56px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div
+          className="panel no-print"
+          style={{
+            padding: '10px 14px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 12,
+            flexWrap: 'wrap',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12.5 }}>
+            <span
+              aria-hidden="true"
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background: backendOnline ? 'var(--success)' : 'var(--danger)',
+                flexShrink: 0,
+              }}
+            />
+            <span style={{ color: backendOnline ? 'var(--text-muted)' : 'var(--danger)', fontWeight: 500 }}>
+              {backendOnline ? 'Visual Data Studio · Click any step to edit, filter, rename, calculate, or sort live rows' : 'Backend Offline (start uvicorn on port 8000)'}
             </span>
-            <div>
-              <div style={{ fontWeight: 700, fontSize: 15 }}>DataFlow — Visual Data Studio</div>
-              <div style={{ fontSize: 11.5, color: backendOnline ? 'var(--success)' : 'var(--danger)' }}>
-                {backendOnline ? 'Click any step to edit, filter, rename, calculate, or sort live rows' : 'Backend Offline (start uvicorn on port 8000)'}
-              </div>
-            </div>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
@@ -235,28 +266,14 @@ export default function App() {
               })}
             </div>
 
-            <button type="button" className="btn" disabled={!graph} onClick={() => setTourOpen(true)}>
-              <Compass size={14} aria-hidden="true" /> Tour
-            </button>
             <button type="button" className="btn" disabled={!graph} onClick={handleSaveFlow}>
               <Save size={14} aria-hidden="true" /> {notice || 'Save Flow'}
             </button>
             <button type="button" data-tour="run-flow" className="btn btn-cta" disabled={!graph || isRunning} onClick={() => graph && execute(graph)}>
               <Play size={14} aria-hidden="true" /> {isRunning ? 'Running…' : 'Run Flow'}
             </button>
-            <button
-              type="button"
-              className="btn"
-              onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
-              aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
-            >
-              {theme === 'light' ? <Moon size={14} aria-hidden="true" /> : <Sun size={14} aria-hidden="true" />}
-            </button>
           </div>
         </div>
-      </header>
-
-      <main style={{ maxWidth: 1360, width: '100%', margin: '0 auto', padding: '16px 24px 56px', display: 'flex', flexDirection: 'column', gap: 16 }}>
         {error && (
           <div className="panel" role="alert" style={{ padding: '10px 14px', borderColor: 'var(--danger)', background: 'var(--danger-soft)', color: 'var(--danger)', fontSize: 13 }}>
             {error}

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -9,11 +8,10 @@ import {
   FileSpreadsheet,
   Filter,
   GitMerge,
-  Menu,
   MousePointer2,
   Sigma,
-  X,
 } from 'lucide-react';
+import Navbar, { LogoMark } from './components/Navbar';
 import './LandingPage.css';
 
 const links = [
@@ -58,19 +56,6 @@ const steps = [
   ['04', 'Review and export', 'Explore results, then export a node preview or supported retail output.'],
 ];
 
-function LogoMark() {
-  return (
-    <span className="df-mark" aria-hidden="true">
-      <svg viewBox="0 0 34 34" fill="none">
-        <path d="m8 11 17-3M9 13l5 10m2 1 8-14" />
-        <circle cx="7.5" cy="11.5" r="3.5" />
-        <circle cx="27" cy="7.5" r="3.5" />
-        <circle cx="15" cy="25" r="3.5" />
-      </svg>
-    </span>
-  );
-}
-
 function WorkflowIllustration({ preview = false }) {
   return (
     <div className={`df-workflow${preview ? ' df-workflow-preview' : ''}`}>
@@ -113,46 +98,17 @@ function WorkflowIllustration({ preview = false }) {
 }
 
 export default function LandingPage() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  function closeMenu() {
-    setMenuOpen(false);
-  }
-
   return (
     <div className="df-landing" id="top">
       <a className="df-skip" href="#main-content">Skip to content</a>
-      <header className="df-nav">
-        <div className="df-nav-inner">
-          <a className="df-brand" href="#top" onClick={closeMenu} aria-label="DataFlow home">
-            <LogoMark />
-            <span>DataFlow<small>VISUAL ANALYTICS</small></span>
-          </a>
-          <button
-            className="df-menu-toggle"
-            type="button"
-            aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-            aria-expanded={menuOpen}
-            aria-controls="df-navigation"
-            onClick={() => setMenuOpen((open) => !open)}
-          >
-            {menuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-          <nav id="df-navigation" className={menuOpen ? 'df-links df-links-open' : 'df-links'} aria-label="Main navigation">
-            {links.map((link) => (
-              <a href={link.href} key={link.href} onClick={closeMenu}>{link.label}</a>
-            ))}
-          </nav>
-          <a className="df-nav-cta" href="/app">Launch App <ArrowUpRight size={15} /></a>
-        </div>
-      </header>
+      <Navbar mode="landing" />
 
       <main id="main-content">
         <section className="df-hero">
           <div className="df-container df-hero-grid">
             <div className="df-hero-copy">
               <p className="df-eyebrow">INTERACTIVE DATA WORKFLOWS</p>
-              <h1>Transform raw data into <span>meaningful insights.</span></h1>
+              <h1>Transform raw data into meaningful insights.</h1>
               <p className="df-intro">
                 An interactive node-based data profiling and analytics platform that simplifies data exploration,
                 automates profiling workflows, and helps users understand datasets through a visual, connected workspace.
