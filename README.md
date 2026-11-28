@@ -1,7 +1,7 @@
 # Samaan — Node-Based Retail Sales & Inventory Studio
 
 > **S.A.M.A.A.N.** — *Sales And Merchandise Automation & Analytics Network*  
-> Powered by the **DataFlow** Visual Analytics Studio (`React 19 + Vite` · `FastAPI + Polars`)
+> Visual Retail Analytics & Reorder Studio (`React 19 + Vite` · `FastAPI + Polars`)
 
 Samaan replaces repetitive weekly Excel VLOOKUPs and manual stock checks with a repeatable **node-based visual pipeline**. Retail owners and analysts can drop raw POS Sales and Warehouse Stock spreadsheets into connected visual steps, inspect live row-by-row output at every node, tune reorder thresholds, and export ready-to-send **Reorder Purchase Orders (POs)** and **Dead Stock Clearance** lists in seconds.
 

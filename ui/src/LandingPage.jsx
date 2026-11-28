@@ -2,7 +2,6 @@ import {
   ArrowRight,
   ArrowUpRight,
   BarChart3,
-  Check,
   Database,
   Download,
   FileSpreadsheet,
@@ -205,7 +204,7 @@ export default function LandingPage() {
 
       <footer className="df-footer">
         <div className="df-container df-footer-main">
-          <a className="df-brand" href="#top" aria-label="DataFlow home"><LogoMark /><span>DataFlow<small>VISUAL ANALYTICS</small></span></a>
+          <a className="df-brand" href="#top" aria-label="Samaan home"><LogoMark /><span>Samaan<small>RETAIL ANALYTICS</small></span></a>
           <p>Visual workflows for profiling, processing, and understanding tabular data.</p>
           <nav aria-label="Footer navigation">
             {links.slice(1).map((link) => <a href={link.href} key={link.href}>{link.label}</a>)}
@@ -213,7 +212,7 @@ export default function LandingPage() {
           </nav>
         </div>
         <div className="df-container df-footer-bottom">
-          <span>© {new Date().getFullYear()} DataFlow · Group 18 major project</span>
+          <span>© {new Date().getFullYear()} Samaan · Group 18 major project</span>
           <span>Interactive Node-Based Data Profiling &amp; Analytics Platform</span>
         </div>
       </footer>

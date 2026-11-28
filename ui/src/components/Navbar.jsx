@@ -36,11 +36,11 @@ export default function Navbar({ mode = 'landing', rightContent = null }) {
           className="df-brand"
           href={isStudio ? '/' : '#top'}
           onClick={closeMenu}
-          aria-label="DataFlow home"
+          aria-label="Samaan home"
         >
           <LogoMark />
           <span>
-            DataFlow<small>VISUAL ANALYTICS</small>
+            Samaan<small>RETAIL ANALYTICS</small>
           </span>
         </a>
 
